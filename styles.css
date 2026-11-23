@@ -1,0 +1,499 @@
+/* ==============================================================================
+   CYBERSNAKE: NEON ARCADE DX - HOJA DE ESTILOS DE ALTA FIDELIDAD
+   Generado por chimera-godmode:7b | Supervisado y Pulido por Antigravity
+   ============================================================================== */
+
+:root {
+    --bg-space: #070913;
+    --bg-cabinet: #0d121f;
+    --bg-card: rgba(18, 24, 38, 0.92);
+    
+    --neon-green: #00FF88;
+    --neon-green-glow: rgba(0, 255, 136, 0.4);
+    --neon-cyan: #00F0FF;
+    --neon-cyan-glow: rgba(0, 240, 255, 0.4);
+    --neon-magenta: #FF007F;
+    --neon-magenta-glow: rgba(255, 0, 127, 0.4);
+    --neon-gold: #FFD700;
+    --neon-gold-glow: rgba(255, 215, 0, 0.4);
+    --neon-purple: #9D4EDD;
+    
+    --text-main: #FFFFFF;
+    --text-muted: #8892B0;
+    
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    
+    --transition-fast: 0.15s ease;
+    --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body, html {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg-space);
+    font-family: 'Orbitron', 'Plus Jakarta Sans', sans-serif;
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Efecto de Fondo de Estrellas y Scanlines */
+.stars-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 20%, rgba(0, 240, 255, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 127, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 99;
+    opacity: 0.45;
+}
+
+/* Contenedor Arcade Central */
+.arcade-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 660px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* HUD Superior */
+.arcade-hud {
+    width: 100%;
+    background: var(--bg-cabinet);
+    border: 1.5px solid rgba(0, 240, 255, 0.3);
+    border-radius: var(--radius-md);
+    padding: 0.9rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.1);
+}
+
+.hud-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.hud-glow-icon {
+    font-size: 1.4rem;
+    color: var(--neon-cyan);
+    filter: drop-shadow(0 0 8px var(--neon-cyan));
+}
+.hud-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: #FFF;
+}
+.hud-title span { color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green); }
+.hud-title small { font-size: 0.55rem; color: var(--neon-magenta); }
+
+.hud-metrics {
+    display: flex;
+    gap: 1.2rem;
+}
+.metric-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.metric-box.highlight {
+    border-color: rgba(255, 215, 0, 0.3);
+    background: rgba(255, 215, 0, 0.05);
+}
+.metric-label {
+    font-size: 0.55rem;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-weight: 700;
+}
+.metric-value {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.85rem;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 6px var(--neon-cyan-glow);
+}
+.metric-box.highlight .metric-value {
+    color: var(--neon-gold);
+    text-shadow: 0 0 6px var(--neon-gold-glow);
+}
+
+.hud-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+.hud-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-main);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hud-btn:hover {
+    background: var(--neon-cyan);
+    color: var(--bg-space);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 12px var(--neon-cyan);
+}
+
+/* Área de Juego y Canvas */
+.screen-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 0 35px rgba(0, 255, 136, 0.2), 0 10px 40px rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--neon-green);
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: #060910;
+}
+
+/* Overlays Integrados */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(7, 9, 19, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-smooth);
+    z-index: 50;
+}
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.overlay-modal {
+    width: 100%;
+    max-width: 440px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.arcade-logo i {
+    font-size: 3rem;
+    color: var(--neon-green);
+    margin-bottom: 0.6rem;
+    filter: drop-shadow(0 0 15px var(--neon-green));
+}
+.neon-pulse {
+    animation: neonPulse 2s infinite alternate;
+}
+@keyframes neonPulse {
+    from { transform: scale(1); filter: drop-shadow(0 0 10px var(--neon-green)); }
+    to { transform: scale(1.08); filter: drop-shadow(0 0 25px var(--neon-green)); }
+}
+
+.arcade-logo h1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: #FFF;
+}
+.arcade-logo h1 span {
+    color: var(--neon-green);
+    text-shadow: 0 0 10px var(--neon-green);
+}
+.tagline {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: var(--neon-cyan);
+    margin-top: 0.4rem;
+}
+
+/* Selectores de Dificultad y Reglas */
+.settings-group {
+    width: 100%;
+    text-align: left;
+}
+.group-title {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+.btn-group {
+    display: flex;
+    gap: 0.4rem;
+    width: 100%;
+}
+.diff-btn, .mode-btn {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-muted);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    padding: 0.55rem 0.2rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+.diff-btn:hover, .mode-btn:hover {
+    border-color: var(--neon-cyan);
+    color: #FFF;
+}
+.diff-btn.active, .mode-btn.active {
+    background: var(--neon-cyan);
+    border-color: var(--neon-cyan);
+    color: var(--bg-space);
+    box-shadow: 0 0 12px var(--neon-cyan-glow);
+}
+
+/* Botón Principal JUGAR */
+.btn-arcade-play {
+    width: 100%;
+    padding: 1.1rem;
+    background: linear-gradient(135deg, var(--neon-green) 0%, #00C853 100%);
+    border: none;
+    border-radius: var(--radius-md);
+    color: #070913;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px var(--neon-green-glow);
+    transition: all var(--transition-smooth);
+}
+.btn-arcade-play:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px var(--neon-green);
+    filter: brightness(1.1);
+}
+
+.keyboard-guide {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+kbd {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    font-family: monospace;
+    color: #FFF;
+    margin: 0 0.15rem;
+}
+
+/* Modal de Pausa y Game Over */
+.pause-icon, .skull-icon {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+}
+.pause-icon { color: var(--neon-cyan); filter: drop-shadow(0 0 12px var(--neon-cyan)); }
+.skull-icon { color: var(--neon-magenta); filter: drop-shadow(0 0 15px var(--neon-magenta)); }
+.neon-danger {
+    font-family: 'Press Start 2P', monospace;
+    color: var(--neon-magenta);
+    font-size: 1.8rem;
+    text-shadow: 0 0 15px var(--neon-magenta);
+}
+
+.stats-recap {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 0, 127, 0.3);
+    border-radius: var(--radius-md);
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+.recap-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+.recap-value {
+    font-family: 'Press Start 2P', monospace;
+    color: var(--neon-cyan);
+}
+.medal-badge {
+    color: var(--neon-gold);
+    font-weight: 800;
+}
+.new-record-alert {
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px dashed var(--neon-gold);
+    color: var(--neon-gold);
+    padding: 0.6rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-top: 0.4rem;
+    animation: flashGold 1s infinite alternate;
+}
+@keyframes flashGold {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+}
+
+.modal-actions {
+    display: flex;
+    gap: 0.8rem;
+    width: 100%;
+}
+.btn-arcade-action {
+    flex: 1;
+    padding: 0.9rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+.btn-arcade-action.primary {
+    background: var(--neon-cyan);
+    color: var(--bg-space);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 15px var(--neon-cyan-glow);
+}
+.btn-arcade-action.secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: #FFF;
+}
+.btn-arcade-action:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.15);
+}
+
+/* Controles Táctiles D-Pad */
+.touch-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+.dpad-cross {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+}
+.dpad-middle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.dpad-key {
+    width: 58px;
+    height: 58px;
+    background: var(--bg-cabinet);
+    border: 1.5px solid rgba(0, 240, 255, 0.4);
+    border-radius: 12px;
+    color: var(--neon-cyan);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: all var(--transition-fast);
+}
+.dpad-key:active {
+    background: var(--neon-cyan);
+    color: var(--bg-space);
+    box-shadow: 0 0 15px var(--neon-cyan);
+    transform: scale(0.92);
+}
+.dpad-center {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 0.6rem;
+}
+
+/* Footer Informativo */
+.arcade-footer {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+}
+.arcade-footer strong { color: var(--neon-green); }
+
+/* Adaptabilidad para Pantallas Pequeñas */
+@media (max-width: 640px) {
+    .arcade-container { padding: 0.75rem; }
+    .arcade-hud { padding: 0.6rem 0.8rem; }
+    .hud-title { font-size: 0.68rem; }
+    .metric-value { font-size: 0.72rem; }
+    .arcade-logo h1 { font-size: 1.25rem; }
+    .btn-arcade-play { font-size: 0.8rem; padding: 0.85rem; }
+    .dpad-key { width: 50px; height: 50px; font-size: 1.25rem; }
+}
